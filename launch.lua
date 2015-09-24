@@ -3,12 +3,12 @@
 function launch(unitSource,unitTarget)
 
 local curpos
-	if df.global.ui_advmode.menu==1 then
-		curpos=df.global.cursor
-	else
-		print ("No cursor located!  You would have slammed into the ground and exploded.") --seriously, kasplut!
-		return
-	end
+    if df.global.ui_advmode.menu==1 then
+        curpos=df.global.cursor
+    else
+        print ("No cursor located!  You would have slammed into the ground and exploded.") --seriously, kasplut!
+        return
+    end
 
 
  local count=0
@@ -27,7 +27,7 @@ resultx = curpos.x - unitSource.pos.x
 resulty = curpos.y - unitSource.pos.y
 resultz = curpos.z - unitSource.pos.z
 
-	
+    
  newlist = df.proj_list_link:new()
  lastlist.next=newlist
  newlist.prev=lastlist
