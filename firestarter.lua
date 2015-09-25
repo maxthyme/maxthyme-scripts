@@ -14,11 +14,11 @@ elseif df.global.ui_advmode.menu==1 then
         for _,k in ipairs(hot) do
             if k.temperature==0 then
             local spot = k
-			k.pos.x=curpos.x
-			k.pos.y=curpos.y
-			k.pos.z=curpos.z
-			k.timer=1000
-			k.temperature=60000
+            k.pos.x=curpos.x
+            k.pos.y=curpos.y
+            k.pos.z=curpos.z
+            k.timer=1000
+            k.temperature=60000
         end
     end
 end

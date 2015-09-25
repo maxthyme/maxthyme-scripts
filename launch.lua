@@ -63,10 +63,10 @@ function launch(unitSource,unitTarget)
     proj.flags[12]=false
   end
   unitoccupancy = dfhack.maps.ensureTileBlock(unitSource.pos).occupancy[unitSource.pos.x%16][unitSource.pos.y%16]
-  if not unitSource.flags1.on_ground then 
-    unitoccupancy.unit = false 
-  else 
-    unitoccupancy.unit_grounded = false 
+  if not unitSource.flags1.on_ground then
+    unitoccupancy.unit = false
+  else
+    unitoccupancy.unit_grounded = false
   end
   unitSource.flags1.projectile=true
   unitSource.flags1.on_ground=false

@@ -13,7 +13,7 @@ if args.help then
  print(
 [[names.lua
 arguments:
-    -help                
+    -help
         print this help message
     -item                     
     if viewing an item        
