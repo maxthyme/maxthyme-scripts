@@ -15,10 +15,10 @@ if args.help then
 arguments:
     -help
         print this help message
-    -item                     
-    if viewing an item        
-    -unit                     
-    if viewing a unit             
+    -item
+    if viewing an item
+    -unit
+    if viewing a unit
     -first Somename or "Some Names like This"
     if a first name is desired, leave blank to clear current first name
 ]])
