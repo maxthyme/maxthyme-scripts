@@ -1,3 +1,16 @@
+--rename items or units
+--[[=begin
+
+names
+=====
+Rename units or items.  Usage:
+
+:-help:     print this help message
+:-item:     if viewing an item
+:-unit:     if viewing a unit
+:-first [Somename | "Some Names like This":
+            if a first name is desired, leave blank to clear current first name
+=end]]
 local utils = require 'utils'
 
 validArgs = validArgs or utils.invert({

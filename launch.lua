@@ -1,5 +1,13 @@
 -- Activate with a cursor on screen and you will go there rapidly, attack something first to send them there.
 -- Based on propel.lua by Roses, molested by Rumrusher and I until this happened, sorry.
+--[[=begin
+
+launch
+======
+Activate with a cursor on screen and you will go there rapidly, attack
+something first to send them there.
+
+=end]]
 function launch(unitSource,unitTarget)
   local curpos
   if df.global.ui_advmode.menu==1 then
