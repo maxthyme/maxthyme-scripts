@@ -10,7 +10,7 @@ prefchange
 ==========
 Sets preferences for mooding to include a weapon type, equipment type,
 and material.  If you also wish to trigger a mood, see
-`plugins/strangemood`.
+`strangemood`.
 
 Valid options:
 
