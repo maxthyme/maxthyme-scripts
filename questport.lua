@@ -1,3 +1,4 @@
+-- Point at a spot on the quest map and go there.
 local gui=require 'gui'
 local qp=df.global.gview.view.child
 local qmap=dfhack.gui.getCurViewscreen()
