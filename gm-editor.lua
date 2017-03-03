@@ -29,22 +29,31 @@ function getTargetFromScreens()
     elseif dfhack.gui.getCurFocus() == 'dwarfmode/LookAround/Flow' then
         local t_look=df.global.ui_look_list.items[df.global.ui_look_cursor]
         my_trg=t_look.flow
-
     elseif dfhack.gui.getSelectedUnit(true) then
-        my_trg=dfhack.gui.getSelectedUnit(true)
+	local g_ref=dfhack.gui.getSelectedUnit(true).general_refs
+		for _,k in ipairs(g_ref) do
+			if g_ref[0].nemesis_id then
+			my_trg=df.global.world.nemesis.all[g_ref[0].nemesis_id]
+			else
+			my_trg=dfhack.gui.getSelectedUnit(true)
+		end
+	end
+    elseif df.global.ui_advmode.menu==1 then
+        local t_look=df.global.ui_look_list.items[df.global.ui_look_cursor]
+        my_trg=t_look.unit
     elseif dfhack.gui.getSelectedItem(true) then
         my_trg=dfhack.gui.getSelectedItem(true)
     elseif dfhack.gui.getSelectedJob(true) then
         my_trg=dfhack.gui.getSelectedJob(true)
     elseif df.global.ui_advmode.menu==26 then
-	    local armies=df.global.world.armies.all
-		    for k,v in ipairs(armies) do
-			    if v.unk_48[0] then	
-			    my_trg=df.global.world.armies.all[k].unk_pos1 --omg I can't believe this worked
+        local armies=df.global.world.armies.all
+		for k,v in ipairs(armies) do
+			if v.flags[0] then	
+			my_trg=df.global.world.armies.all[k].pos
 			end
 		end
-    else
-        my_trg=df.global --I removed the qerror line here because I've been poking around in df.global stuff alot lately and this is just super handy.
+	 else
+        my_trg=df.global
     end
     return my_trg
 end
