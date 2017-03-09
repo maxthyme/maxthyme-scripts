@@ -5,7 +5,7 @@
 launch
 ======
 Activate with a cursor on screen and you will go there rapidly. Attack
-something first to send them there.
+something first to ride them there.
 
 ]====]
 function launch(unitSource,unitTarget,unitRider)
@@ -13,7 +13,7 @@ function launch(unitSource,unitTarget,unitRider)
   if df.global.ui_advmode.menu == df.ui_advmode_menu.Look then
     curpos = df.global.cursor
   else
-    qerror("No [l] cursor located!  You would have slammed into the ground and exploded.") --seriously, kasplut!
+    qerror("No [l] cursor located!  You would have slammed into the ground and exploded.")
   end
 
 
@@ -79,10 +79,6 @@ function launch(unitSource,unitTarget,unitRider)
   unitSource.flags1.on_ground=false
 end
 
---if not (dfhack.isMapLoaded() and dfhack.world.isAdventureMode()) then
---  qerror("This script can only be used in adventure mode.")
---end
-
 unitTarget = curpos
 if df.global.world.units.active[0].job.hunt_target==nil then
   unitSource = df.global.world.units.active[0]
@@ -96,4 +92,4 @@ else
   require("utils").insert_sorted(df.global.world.units.other.ANY_RIDER,unitRider,"id")
 end
 
-launch(unitSource,unitTarget,unitRider)
+launch(unitSource,unitTarget,unitRider) 
