@@ -4,14 +4,7 @@ local widgets = require 'gui.widgets'
 local vw = df.global.gview.view.child
 
 updater=defclass(updater,gui.Screen)
-updater.focus_path = 'updatetimer'
-function updater:checkScreen()
-	if df.viewscreen_update_regionst:is_instance(vw) then
-		return true
-	else qerror("This has to be used on the updating region screen!")
-	end
-end
-
+updater.focus_path = 'updatefinish'
 function updater:init()
     self:addviews{
         widgets.Label{
@@ -23,18 +16,24 @@ function updater:init()
 end
 
 function updater:onInput(keys)
-self:checkScreen()
-	if keys.LEAVESCREEN or keys.SELECT then
-	       	self:dismiss()
-	end
-	if keys.CURSOR_RIGHT then
-		vw.year_tick = vw.year_tick+1200
-	elseif keys.CURSOR_LEFT then
-		vw.year_tick = vw.year_tick-1200
-	elseif keys.CURSOR_UP then
-		vw.year_tick = vw.year_tick-33600
-	elseif keys.CURSOR_DOWN then
-		vw.year_tick = vw.year_tick+33600
+	if df.viewscreen_update_regionst:is_instance(vw) then
+		if keys.LEAVESCREEN or keys.SELECT then
+		       	self:dismiss()
+		end
+		if keys.CURSOR_RIGHT then
+			vw.year_tick = vw.year_tick+1200
+		elseif keys.CURSOR_LEFT then
+			vw.year_tick = vw.year_tick-1200
+		elseif keys.CURSOR_UP then
+			vw.year_tick = vw.year_tick-33600
+		elseif keys.CURSOR_DOWN then
+			vw.year_tick = vw.year_tick+33600
+		end
+	elseif not df.viewscreen_update_regionst:is_instance(vw) then
+		if keys then
+			self:dismiss()
+			qerror("This has to be used on the updating region screen!")		
+		end
 	end
 	self.super.onInput(self,keys)
 end
