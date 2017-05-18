@@ -15,35 +15,48 @@ function updater:init()
             view_id="mainLabel",
             frame = {xalign=0,yalign=0},
             text={
-		{id="cmd", text="Left/Right: Day(-/+), Up/Down: Month(-/+), Enter/Esc: Resume, Date: "},
-		{id="yr", text=self:callback("getYear")},{text="/"}, {id="mn", text=self:callback("getMonth")},{text="/"}, {id="dy", text=self:callback("getDay")}}
+		{id="cmd", text=" Left/Right: Day, Up/Down: Month, Fast: Week/Year, Enter/Esc: Stop on "},
+		{id="yr", text=self:callback("getYear")},{text="/"}, {id="mn", text=self:callback("getMonth")},{text="/"}, {id="dy", text=self:callback("getDay")},{text="     "}}
 			  }
 			}
 end
 
 function updater:getYear()
-	yr = vw.year
+	if df.viewscreen_update_regionst:is_instance(vw) then
+		yr = vw.year
+	else
+		yr = df.global.cur_year
+	end
 	return yr
 end
 
 function updater:getMonth()
+	if df.viewscreen_update_regionst:is_instance(vw) then
 		if vw.year_tick>=33600 then
 			mn = math.floor(vw.year_tick/33600)+1
 		else
 			mn = 1
 		end
+	else
+		mn = math.floor(df.global.cur_year_tick/33600)+1
+	end
 	return mn
 end
 
 function updater:getDay()
-	local dy
-	local mf = (mn-1)*33600
-	local yf = math.floor(vw.year_tick/1200)
-		if vw.year_tick>=1200 then
-			dy = math.floor(yf-(mf/1200))+1
-		else
-			dy = 1
-		end
+	if df.viewscreen_update_regionst:is_instance(vw) then
+		local mf = (mn-1)*28
+		local yf = math.floor(vw.year_tick/1200)
+			if vw.year_tick>=1200 then
+				dy = (yf-mf)+1
+			else
+				dy = 1
+			end
+	else
+		mf = (math.floor(df.global.cur_year_tick/33600))*28
+		yf = math.floor(df.global.cur_year_tick/1200)
+			dy = (yf-mf)+1
+	end
 	return dy
 end
 
@@ -59,12 +72,26 @@ function updater:onInput(keys)
 			else
 				vw.year_tick = vw.year_tick+1200
 			end
+		elseif keys.CURSOR_RIGHT_FAST then
+			if vw.year_tick>=394800 then
+				vw.year = vw.year+1
+				vw.year_tick = vw.year_tick-394800
+			else
+				vw.year_tick = vw.year_tick+8400
+			end
 		elseif keys.CURSOR_LEFT then
 			if vw.year_tick<=1200 then
 				vw.year = vw.year-1
 				vw.year_tick = 402000
 			else
 				vw.year_tick = vw.year_tick-1200
+			end
+		elseif keys.CURSOR_LEFT_FAST then
+			if vw.year_tick<=8400 then
+				vw.year = vw.year-1
+				vw.year_tick = vw.year_tick+394800
+			else
+				vw.year_tick = vw.year_tick-8400
 			end
 		elseif keys.CURSOR_UP then
 			if vw.year_tick<=33600 then
@@ -73,6 +100,8 @@ function updater:onInput(keys)
 			else
 				vw.year_tick = vw.year_tick-33600
 			end
+		elseif keys.CURSOR_UP_FAST then
+				vw.year = vw.year-1
 		elseif keys.CURSOR_DOWN then
 			if vw.year_tick>=369600 then
 				vw.year = vw.year+1
@@ -80,6 +109,8 @@ function updater:onInput(keys)
 			else
 				vw.year_tick = vw.year_tick+33600
 			end
+		elseif keys.CURSOR_DOWN_FAST then
+				vw.year = vw.year+1
 		end
 	elseif not df.viewscreen_update_regionst:is_instance(vw) then
 		if keys then
