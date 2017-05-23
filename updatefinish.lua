@@ -15,7 +15,7 @@ function updater:init()
             view_id="mainLabel",
             frame = {xalign=0,yalign=0},
             text={
-		{id="cmd", text=" Left/Right: Day, Up/Down: Month, Fast: Week/Year, Enter/Esc: Stop on "},
+		{id="cmd", text=" Left/Right: Day, Up/Down: Week, Fast: Month/3 Months, Enter/Esc: To "},
 		{id="yr", text=self:callback("getYear")},{text="/"}, {id="mn", text=self:callback("getMonth")},{text="/"}, {id="dy", text=self:callback("getDay")},{text="     "}}
 			  }
 			}
@@ -73,11 +73,11 @@ function updater:onInput(keys)
 				vw.year_tick = vw.year_tick+1200
 			end
 		elseif keys.CURSOR_RIGHT_FAST then
-			if vw.year_tick>=394800 then
+			if vw.year_tick>=369600 then
 				vw.year = vw.year+1
-				vw.year_tick = vw.year_tick-394800
+				vw.year_tick = 0
 			else
-				vw.year_tick = vw.year_tick+8400
+				vw.year_tick = vw.year_tick+33600
 			end
 		elseif keys.CURSOR_LEFT then
 			if vw.year_tick<=1200 then
@@ -87,30 +87,40 @@ function updater:onInput(keys)
 				vw.year_tick = vw.year_tick-1200
 			end
 		elseif keys.CURSOR_LEFT_FAST then
-			if vw.year_tick<=8400 then
-				vw.year = vw.year-1
-				vw.year_tick = vw.year_tick+394800
-			else
-				vw.year_tick = vw.year_tick-8400
-			end
-		elseif keys.CURSOR_UP then
 			if vw.year_tick<=33600 then
 				vw.year = vw.year-1
 				vw.year_tick = 369600
 			else
 				vw.year_tick = vw.year_tick-33600
 			end
-		elseif keys.CURSOR_UP_FAST then
+		elseif keys.CURSOR_UP then
+			if vw.year_tick<=8400 then
 				vw.year = vw.year-1
-		elseif keys.CURSOR_DOWN then
-			if vw.year_tick>=369600 then
-				vw.year = vw.year+1
-				vw.year_tick = 0
+				vw.year_tick = vw.year_tick+394800
 			else
-				vw.year_tick = vw.year_tick+33600
+				vw.year_tick = vw.year_tick-8400
+			end
+		elseif keys.CURSOR_UP_FAST then
+			if vw.year_tick<=100800 then
+				vw.year = vw.year-1
+				vw.year_tick = vw.year_tick+302400
+			else
+				vw.year_tick = vw.year_tick-100800
+			end
+		elseif keys.CURSOR_DOWN then
+			if vw.year_tick>=394800 then
+				vw.year = vw.year+1
+				vw.year_tick = vw.year_tick-394800
+			else
+				vw.year_tick = vw.year_tick+8400
 			end
 		elseif keys.CURSOR_DOWN_FAST then
+			if vw.year_tick>=302400 then
 				vw.year = vw.year+1
+				vw.year_tick = vw.year_tick-302400
+			else
+				vw.year_tick = vw.year_tick+100800
+			end
 		end
 	elseif not df.viewscreen_update_regionst:is_instance(vw) then
 		if keys then
