@@ -17,10 +17,10 @@ function genedit:init()
 		view_id="main",
 		frame = {t=18,l=0}, 
 		text={
-			{text="Exit: Enter/Esc        "},{id="prec", text="Site Num: "}, {id="curs", text=self:callback("getSites")},NEWLINE,
-			{text="Edit: Left/Right       "},{id="pres", text="Site Cap: "}, {id="caps", text=self:callback("getCaps")},NEWLINE,
-			{text="Edit: Fast(Left/Right) "},{id="pops", text="Pop Cap: "}, {id="popc", text=self:callback("getPops")},NEWLINE,
-			{text="Edit: Up/Down          "},{id="ends", text="End Year: "}, {id="endy", text=self:callback("getEny")},
+			{text="Quit: Enter/Esc        "},{id="prec", text="Site Num: "}, {id="curs", text=self:callback("getSites")},NEWLINE,
+			{text="Edit: Left/Right(Fast) "},{id="pres", text="Site Cap: "}, {id="caps", text=self:callback("getCaps")},NEWLINE,
+			{text="Edit: Up/Down(Fast)    "},{id="ends", text="End Year: "}, {id="endy", text=self:callback("getEny")},NEWLINE,
+			{text="Edit: PgUp/Dn(Fast)    "},{id="pops", text="Pop Cap: "}, {id="popc", text=self:callback("getPops")},
 				}
 			}
 }
@@ -68,17 +68,29 @@ function genedit:onInput(keys)
 		       	self:dismiss()
 		end
 		if keys.CURSOR_LEFT then 
-			wg.site_cap = wg.site_cap-50
+			wg.site_cap = wg.site_cap-25
 		elseif keys.CURSOR_RIGHT then
-			wg.site_cap = wg.site_cap+50
+			wg.site_cap = wg.site_cap+25
 		elseif keys.CURSOR_LEFT_FAST then
-			wg.total_civ_population = wg.total_civ_population-500
+			wg.site_cap = wg.site_cap-100
 		elseif keys.CURSOR_RIGHT_FAST then
-			wg.total_civ_population = wg.total_civ_population+500
+			wg.site_cap = wg.site_cap+100
 		elseif keys.CURSOR_DOWN then
 			wg.end_year = wg.end_year-1
 		elseif keys.CURSOR_UP then
 			wg.end_year = wg.end_year+1
+		elseif keys.CURSOR_DOWN_FAST then
+			wg.end_year = wg.end_year-25
+		elseif keys.CURSOR_UP_FAST then
+			wg.end_year = wg.end_year+25
+		elseif keys.STANDARDSCROLL_PAGEDOWN then
+			wg.total_civ_population = wg.total_civ_population-250
+		elseif keys.STANDARDSCROLL_PAGEUP then
+			wg.total_civ_population = wg.total_civ_population+250
+		elseif keys.SECONDSCROLL_PAGEDOWN then
+			wg.total_civ_population = wg.total_civ_population-1000
+		elseif keys.SECONDSCROLL_PAGEUP then
+			wg.total_civ_population = wg.total_civ_population+1000
 		end
 	elseif not df.viewscreen_new_regionst:is_instance(wv) then
 		if keys then
