@@ -1,4 +1,5 @@
--- Point at a spot on the quest map and go there.
+--Sends you to the location of your quest log cursor.
+--Don't try to travel normally while in forbidden travel areas (mountains, lairs) and you can questport out.
 local gui=require 'gui'
 local qp=df.global.gview.view.child
 local qmap=dfhack.gui.getCurViewscreen()
@@ -17,7 +18,6 @@ local qarm=df.global.world.armies.all
 		gui.simulateInput(qp,'CURSOR_DOWN')
 		dfhack.timeout(15,'frames',function()
 		gui.simulateInput(qp,'A_TRAVEL_LOG') end)
---		print('Ready to teleport!') end)
 	elseif df.global.ui_advmode.menu==26 then
 		for k,v in ipairs(qarm) do
 			if v.flags[0] then	
