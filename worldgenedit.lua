@@ -19,7 +19,7 @@ function genedit:init()
 		text={
 			{text="Quit: Enter/Esc        "},{id="prec", text="Site Num: "}, {id="curs", text=self:callback("getSites")},NEWLINE,
 			{text="Edit: Left/Right(Fast) "},{id="pres", text="Site Cap: "}, {id="caps", text=self:callback("getCaps")},NEWLINE,
-			{text="Edit: Up/Down(Fast)    "},{id="ends", text="End Year: "}, {id="endy", text=self:callback("getEny")},NEWLINE,
+			{text="Edit: Up/Down(Fast/Z)  "},{id="ends", text="End Year: "}, {id="endy", text=self:callback("getEny")},NEWLINE,
 			{text="Edit: PgUp/Dn(Fast)    "},{id="pops", text="Pop Cap: "}, {id="popc", text=self:callback("getPops")},
 				}
 			}
@@ -83,6 +83,10 @@ function genedit:onInput(keys)
 			wg.end_year = wg.end_year-25
 		elseif keys.CURSOR_UP_FAST then
 			wg.end_year = wg.end_year+25
+		elseif keys.CURSOR_DOWN_Z then
+			wg.end_year = wg.end_year-1000
+		elseif keys.CURSOR_UP_Z then
+			wg.end_year = wg.end_year+1000
 		elseif keys.STANDARDSCROLL_PAGEDOWN then
 			wg.total_civ_population = wg.total_civ_population-250
 		elseif keys.STANDARDSCROLL_PAGEUP then
