@@ -5,9 +5,10 @@ function punt(itemSource,itemTarget)
 local curpos
 	if df.global.ui_advmode.menu==1 then
 		curpos=df.global.cursor
-	else
-		print ("No cursor located!  You would have slammed into the ground and exploded.")
-	return
+  elseif df.global.gamemode == 1 then
+    qerror("No [l] cursor located!  You would have slammed into the ground and exploded.")
+  else 
+    qerror("Must be used in adventurer mode or the arena!")
 end
 
 local count=0
