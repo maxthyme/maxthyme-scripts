@@ -80,11 +80,19 @@ local facts = df.global.world.artifacts.all
 		fake.item.fixed_temp = base.fixed_temp
 		fake.item.weight = base.weight
 		fake.item.weight_fraction = base.weight_fraction
---		fake.item.improvements:insert('#',{new = df.itemimprovement_spikesst,mat_type=25,mat_index=5,quality=6,skill_rating=15})
---		fake.item.improvements:insert('#',{new = df.itemimprovement_spikesst,mat_type=25,mat_index=14,quality=6,skill_rating=15})
+		fake.item.improvements:insert('#',{new = df.itemimprovement_spikesst,mat_type=0,mat_index=8,quality=6,skill_rating=15})
+		fake.item.improvements:insert('#',{new = df.itemimprovement_art_imagest,mat_type=0,mat_index=3,quality=6,skill_rating=15})
+		fake.item.improvements:insert('#',{new = df.itemimprovement_art_imagest,mat_type=0,mat_index=0,quality=6,skill_rating=15})
 		fake.item.improvements:insert('#',{new = df.itemimprovement_art_imagest,mat_type=0,mat_index=8,quality=6,skill_rating=15})
-		fake.item.improvements:insert('#',{new = df.itemimprovement_art_imagest,mat_type=0,mat_index=12,quality=6,skill_rating=15})
-		fake.item.improvements:insert('#',{new = df.itemimprovement_art_imagest,mat_type=4,mat_index=0,quality=6,skill_rating=15})
+   fake.flags:new()
+    for i = 0,7 do
+      if #fake.flags < 8 then
+       fake.flags[i] = true
+      elseif #fake.flags==8 then
+       fake.flags[0] = false
+       fake.flags[i] = false
+     end
+   end
    fake.anon_1 = -1000000
    fake.anon_2 = -1000000
    fake.anon_3 = -1000000
@@ -94,8 +102,8 @@ local facts = df.global.world.artifacts.all
      base.improvements = fake.item.improvements
      fake.item:setQuality(6)
      base:setQuality(6)
-     if fake.item == 'WEAPON' then item:setSharpness(1,0) end
-     if base == 'WEAPON' then item:setSharpness(1,0) end
+     if (df.item_weaponst:is_instance(fake.item) or df.item_toolst:is_instance(fake.item)) then fake.item.sharpness=100000 end
+     if (df.item_weaponst:is_instance(base) or df.item_toolst:is_instance(base)) then base.sharpness=100000 end
      df.global.artifact_next_id=df.global.artifact_next_id+1
  df.global.world.history.events:new()
  df.global.world.history.events:insert('#',{new=df.history_event_artifact_createdst,
